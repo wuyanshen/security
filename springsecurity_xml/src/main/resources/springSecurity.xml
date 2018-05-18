@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+    <!-- <security:http>: spring过 滤 器 链 配 置 ：
+        1 ） 需 要 拦 截 什 么 资 源
+        2 ） 什 么 资 源 什 么 角 色 权 限
+        3 ） 定 义 认 证 方 式 ： HttpBasic.FormLogin （*）
+        4 ） 定 义 登 录 页 面 ， 定 义 登 录 请 求 地 址 ， 定 义 错 误 处 理 方 式
+    -->
+    <security:http>
+        <!--
+        pattern:需 要 拦 截 资 源
+        access:拦 截 方 式
+                isFullyAuthenticated():该 资 源 需 要 认 证 才 可 以 访 问
+        -->
+        <security:csrf disabled="true"/>
+        <security:intercept-url pattern="/userLogin" access="permitAll()"/>
+        <security:intercept-url pattern="/user/index" access="permitAll()"/>
+        <security:intercept-url pattern="/user/add" access="hasAuthority('/user/add')" />
+        <security:intercept-url pattern="/user/update" access="hasAuthority('/user/update')"/>
+        <security:intercept-url pattern="/user/find" access="hasAuthority('/user/find')"/>
+        <security:intercept-url pattern="/user/delete" access="hasAuthority('/user/delete')"/>
+        <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
+        <!-- security:http-basic:使 用 HttpBasic方 式 进 行 登 录 （ 认 证 ）-->
+        <!--<security:http-basic/>-->
+        <security:access-denied-handler error-page="/error"/>
+        <security:form-login login-page="/userLogin"  authentication-success-forward-url="/user/index" default-target-url="/user/index" />
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="myUserDetailService">
+            <!--<security:user-service>
+                <security:user name="eric" password="123456" authorities="ROLE_USER"/>
+            </security:user-service>-->
+        </security:authentication-provider>
+    </security:authentication-manager>
+    <bean id="myUserDetailService" class="com.security.web.service.MyUserDetailService"/>
+</beans>

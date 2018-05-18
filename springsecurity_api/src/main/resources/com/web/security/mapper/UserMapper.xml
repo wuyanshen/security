@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.security.mapper.UserMapper">
+    <!--查 询 用 户-->
+    <select id="findByUsername" parameterType="string" resultType="user">
+      select * from user where username = #{value}
+    </select>
+
+    <!--查 询 用 户 的 权 限-->
+    <select id="findPermissionByUsername" parameterType="string" resultType="permission">
+        SELECT d.*
+        FROM
+            user a
+            INNER JOIN user_role b
+                ON a.userid = b.userid
+            INNER JOIN role_permission c
+                ON b.roleid = c.roleid
+            INNER JOIN permission d
+                ON c.permissionid = d.permissionid
+        WHERE a.username = #{value};
+    </select>
+    <!--查询所有用户-->
+    <select id="findAllUser" resultType="user">
+        SELECT * FROM user;
+    </select>
+</mapper>
