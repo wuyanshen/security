@@ -1,6 +1,6 @@
 import com.security.web.entity.Permission;
 import com.security.web.entity.User;
-import com.web.security.mapper.UserMapper;
+import com.security.web.mapper.UserMapper;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
