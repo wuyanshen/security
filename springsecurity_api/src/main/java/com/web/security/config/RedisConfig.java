@@ -1,7 +1,6 @@
 package com.web.security.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -11,7 +10,6 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
@@ -30,20 +28,6 @@ public class RedisConfig extends CachingConfigurerSupport {
         return config;
     }
 
-
-    @Value("${spring.redis.timeout}")
-    private int timeOut;
-
-    @Value("${spring.redis.hostName}")
-    private String host;
-
-    @Value("${spring.redis.port}")
-    private int port;
-
-    @Bean
-    public JedisPool jedisPool(){
-        return new JedisPool(host,port);
-    }
 
     @Bean
     @ConfigurationProperties(prefix="spring.redis")
