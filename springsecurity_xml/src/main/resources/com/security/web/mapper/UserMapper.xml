@@ -19,4 +19,8 @@
                 ON c.permissionid = d.permissionid
         WHERE a.username = #{value};
     </select>
+
+    <update id="updateUserPassword" parameterType="user">
+        UPDATE user a set a.password = #{password} WHERE a.username = #{username};
+    </update>
 </mapper>

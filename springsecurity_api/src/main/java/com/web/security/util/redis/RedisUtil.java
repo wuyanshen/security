@@ -226,7 +226,7 @@ public final class RedisUtil {
      * @param key
      * @return
      */
-    public static boolean haskey(String key) {
+    public static boolean hasKey(String key) {
         return redisTemplate.hasKey(key);
     }
 
@@ -244,14 +244,14 @@ public final class RedisUtil {
      * 清除所有key
      * @return
      */
-    public static Object flushdb() {
-        return redisTemplate.execute(new RedisCallback() {
-            @Override
-            public String doInRedis(RedisConnection redisConnection) throws DataAccessException {
-                redisConnection.flushDb();
+    public static Object flushDB() {
+        return redisTemplate.execute(
+            (RedisCallback)c -> {
+                c.flushDb();
                 return "ok";
             }
-        });
+        );
+
     }
 
     /**
@@ -295,6 +295,6 @@ public final class RedisUtil {
      * @return
      */
     public static String ping() {
-        return (String)redisTemplate.execute((RedisCallback)c -> c.ping());
+        return (String)redisTemplate.execute((RedisCallback)c ->  c.ping());
     }
 }

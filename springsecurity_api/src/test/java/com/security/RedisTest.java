@@ -27,8 +27,6 @@ public class RedisTest {
    /* @Autowired
     private JedisUtil jedisUtil;*/
 
-   @Autowired
-   private RedisUtil redisUtil;
 
     @Autowired
     private ReedisUtil reedisUtil;
@@ -38,11 +36,11 @@ public class RedisTest {
 
     @Test
     public void test(){
-        if(!redisUtil.haskey("phone")){
-            redisUtil.setValue("phone","手机");
+        if(!RedisUtil.hasKey("phone")){
+            RedisUtil.setCacheObject("phone","手机",60);
             System.out.println("key已经存储到了redis");
         }else {
-            redisUtil.deleteKey("phone");
+            RedisUtil.delete("phone");
             System.out.println("redis中已经存在了key");
         }
     }
@@ -82,7 +80,7 @@ public class RedisTest {
 
     @Test
     public void test5(){
-        redisUtil.flushdb();
+        RedisUtil.flushDB();
     }
 
     @Test

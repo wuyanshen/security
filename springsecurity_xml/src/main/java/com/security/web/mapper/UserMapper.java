@@ -17,4 +17,10 @@ public interface UserMapper {
      */
      List<Permission> findPermissionByUsername(String username);
 
+    /**
+     * 更新用户名的密码
+     * @param user
+     */
+    void updateUserPassword(User user);
+
 }

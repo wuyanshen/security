@@ -1,10 +1,14 @@
+import com.alibaba.fastjson.JSON;
 import com.security.web.entity.Permission;
 import com.security.web.entity.User;
 import com.security.web.mapper.UserMapper;
+import com.security.web.util.SpringSecurityUtil;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -36,6 +40,36 @@ public class UserMapperTest {
             System.out.println(perm.getPermissionname() + " - " + perm.getPermissionflag());
             log.debug(perm.getPermissionname() + " - " + perm.getPermissionflag());
         }
+    }
+
+    @Test
+    public void updatePassword(){
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        User user = userMapper.findByUsername("jack");
+        String password = passwordEncoder.encode(user.getPassword());
+        user.setPassword(password);
+        userMapper.updateUserPassword(user);
+    }
+
+    @Test
+    public void decodePassword(){
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String pwd = passwordEncoder.encode("123");
+        String password = userMapper.findByUsername("jack").getPassword();
+        if(pwd.equals(password)){
+            System.out.println("password is same");
+        }
+
+    }
+
+    @Test
+    public void getCurrentUser(){
+        User user = SpringSecurityUtil.getCurrentUser();
+        if(user!=null){
+            String str = JSON.toJSONString(user);
+            System.out.println(str);
+        }
+
     }
 }
 

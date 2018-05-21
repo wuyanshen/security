@@ -24,3 +24,5 @@
     git commit -m “update .gitignore”
     来解释下几个参数 -r 是删除文件夹及其子目录 –cached 是删除暂存区里的文件而不删除工作区里的文件，第一种是删除某个文件，第二种方法就把所有暂存区里的文件删了，再加一遍，相当于更新了一遍。
    
+## 验证码使用
+  [JAVA 验证码生成工具类及使用](https://blog.csdn.net/hgyu_962464/article/details/60586941)

@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2018/5/16
@@ -16,6 +16,10 @@
         <form action="${pageContext.request.contextPath}/login" method="post">
             用户名：<input type="text" name="username"><br>
             密码：<input type="text" name="password"><br>
+            验证码：<input id="coldValue" name="imageCode" type="text"  placeholder="验证码" style="width: 60px;">
+            <img id="validateCode" class="authCodeImg" src="${pageContext.request.contextPath}/getCode?time=<%=new Date().getTime() %>"
+                 title="看不清可单击图片刷新" onclick="this.src='${pageContext.request.contextPath}/getCode?time='+new Date().getTime();"><br>
+            记住我:<input type="checkbox" name="remember-me" value="true"><br/>
             <input type="submit" value="登录"><br>
         </form>
     </table>

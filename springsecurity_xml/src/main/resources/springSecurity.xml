@@ -19,7 +19,7 @@
         -->
         <security:csrf disabled="true"/>
         <security:intercept-url pattern="/userLogin" access="permitAll()"/>
-        <security:intercept-url pattern="/user/index" access="permitAll()"/>
+        <security:intercept-url pattern="/getCode" access="permitAll()"/>
         <security:intercept-url pattern="/user/add" access="hasAuthority('/user/add')" />
         <security:intercept-url pattern="/user/update" access="hasAuthority('/user/update')"/>
         <security:intercept-url pattern="/user/find" access="hasAuthority('/user/find')"/>
@@ -27,16 +27,37 @@
         <security:intercept-url pattern="/**" access="isFullyAuthenticated()"/>
         <!-- security:http-basic:使 用 HttpBasic方 式 进 行 登 录 （ 认 证 ）-->
         <!--<security:http-basic/>-->
+        <!--自定义spring Security过滤器-->
+        <security:custom-filter ref="imageCodeFilter" before="FORM_LOGIN_FILTER"/>
+
         <security:access-denied-handler error-page="/error"/>
-        <security:form-login login-page="/userLogin"  authentication-success-forward-url="/user/index" default-target-url="/user/index" />
+        <security:form-login login-page="/userLogin"  authentication-success-forward-url="/user/index" default-target-url="/user/index" authentication-success-handler-ref="myAuthenticationSuccessHandler" authentication-failure-handler-ref="myAuthenticationFailureHandler"/>
+        <!--记住我功能-->
+        <security:remember-me token-repository-ref="jdbcTokenRepository" token-validity-seconds="3600"/>
     </security:http>
 
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="myUserDetailService">
+            <!--密码的加密 使用BCryptPasswordEncoder-->
+            <security:password-encoder ref="passwordEncoder"/>
             <!--<security:user-service>
                 <security:user name="eric" password="123456" authorities="ROLE_USER"/>
             </security:user-service>-->
         </security:authentication-provider>
     </security:authentication-manager>
     <bean id="myUserDetailService" class="com.security.web.service.MyUserDetailService"/>
+    <bean id="myAuthenticationSuccessHandler" class="com.security.web.config.MyAuthenticationSuccessHandler"/>
+    <bean id="myAuthenticationFailureHandler" class="com.security.web.config.MyAuthenticationFailureHandler"/>
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <!--验证码过滤器-->
+    <bean id="imageCodeFilter" class="com.security.web.filter.ImageCodeFilter">
+        <property name="authenticationFailureHandler" ref="myAuthenticationFailureHandler"/>
+    </bean>
+
+    <!--记住我的功能 将cooke存储到数据库，并由springSecurity自动生成表-->
+    <bean id="jdbcTokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="createTableOnStartup" value="false"/>
+    </bean>
+
 </beans>

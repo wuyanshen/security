@@ -17,8 +17,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;//这里会报错，但是并不会影响
 
-    @Autowired
-    private RedisUtil redisUtil;
 
     @Override
     public int addUser(User user) {
@@ -33,11 +31,11 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(pageNum, pageSize);
 
         //redis操作
-        if(!redisUtil.haskey("users")){
-            redisUtil.setValue("users",userMapper.findAllUser());
+        if(!RedisUtil.hasKey("users")){
+            RedisUtil.setCacheObject("users",userMapper.findAllUser(),20);
             list = userMapper.findAllUser();
         }else {
-            list =  redisUtil.getList("users",User.class);
+            list =  RedisUtil.getCacheList("users");
         }
 
         return list;
@@ -48,11 +46,11 @@ public class UserServiceImpl implements UserService {
         User user = null;
 
         //redis操作
-        if(!redisUtil.haskey(username)){
+        if(!RedisUtil.hasKey(username)){
             user = userMapper.findByUsername(username);
-            redisUtil.setValue(username,user);
+            RedisUtil.setCacheObject(username,user,60);
         }else {
-            user = (User) redisUtil.getObject(username,User.class);
+            user = (User) RedisUtil.getCacheObject(username,User.class);
         }
         return user;
     }
