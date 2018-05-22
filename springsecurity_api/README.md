@@ -1,10 +1,10 @@
-#SpringSecurity
-##技术栈
+# SpringSecurity
+## 技术栈
     1.springSecurity
     2.mysql
     3.mybatis
     4.spring boot 2.0+
-##学习地址：
+## 学习地址：
 [springboot整合mybatis](https://blog.csdn.net/winter_chen001/article/details/77249029)
 
 [去掉IntelliJ IDEA 中 mybatis 对应的 xml 文件警告](https://blog.csdn.net/aubdiy/article/details/68485336)
