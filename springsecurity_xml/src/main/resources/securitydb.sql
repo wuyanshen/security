@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : mysql
-Source Server Version : 50717
+Source Server         : localhost
+Source Server Version : 50722
 Source Host           : localhost:3306
 Source Database       : securitydb
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-05-17 02:20:14
+Date: 2018-05-22 09:44:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,6 +33,22 @@ INSERT INTO `permission` VALUES ('1', '添加用户', '/user/add');
 INSERT INTO `permission` VALUES ('2', '更新用户', '/user/update');
 INSERT INTO `permission` VALUES ('3', '删除用户', '/user/delete');
 INSERT INTO `permission` VALUES ('4', '查找用户', '/user/find');
+
+-- ----------------------------
+-- Table structure for persistent_logins
+-- ----------------------------
+DROP TABLE IF EXISTS `persistent_logins`;
+CREATE TABLE `persistent_logins` (
+  `username` varchar(64) NOT NULL,
+  `series` varchar(64) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `last_used` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`series`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of persistent_logins
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for role
@@ -69,10 +85,14 @@ CREATE TABLE `role_permission` (
 -- ----------------------------
 -- Records of role_permission
 -- ----------------------------
-INSERT INTO `role_permission` VALUES ('1', '1');
-INSERT INTO `role_permission` VALUES ('2', '2');
-INSERT INTO `role_permission` VALUES ('3', '3');
+INSERT INTO `role_permission` VALUES ('1', '4');
+INSERT INTO `role_permission` VALUES ('2', '4');
+INSERT INTO `role_permission` VALUES ('3', '1');
 INSERT INTO `role_permission` VALUES ('4', '4');
+INSERT INTO `role_permission` VALUES ('4', '3');
+INSERT INTO `role_permission` VALUES ('4', '2');
+INSERT INTO `role_permission` VALUES ('4', '1');
+INSERT INTO `role_permission` VALUES ('3', '4');
 
 -- ----------------------------
 -- Table structure for user
@@ -82,7 +102,7 @@ CREATE TABLE `user` (
   `userid` int(10) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `username` varchar(50) DEFAULT NULL COMMENT '用户名',
   `realname` varchar(50) DEFAULT NULL COMMENT '真实姓名',
-  `password` varchar(50) DEFAULT NULL COMMENT '密码',
+  `password` varchar(100) DEFAULT NULL COMMENT '密码',
   `createtdate` date DEFAULT NULL COMMENT '创建时间',
   `lastlogindate` date DEFAULT NULL COMMENT '最后登录时间',
   `isuse` int(5) DEFAULT NULL COMMENT '是否可用',
@@ -95,9 +115,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'jack', '杰克', '123', '2018-05-17', '2018-05-17', '1', '1', '1', '1');
-INSERT INTO `user` VALUES ('2', 'tom', '汤姆', '123', '2018-05-17', '2018-05-17', '1', '1', '1', '1');
-INSERT INTO `user` VALUES ('3', 'jim', '吉姆', '123', '2018-05-17', '2018-05-17', '1', '1', '1', '1');
+INSERT INTO `user` VALUES ('1', 'jack', '杰克', '$2a$10$aFWSMETkwYfjofRJ38SwV.v9MNQdn.pECJRA/zpUagPzI4MVEeA2O', '2018-05-17', '2018-05-17', '1', '1', '1', '1');
+INSERT INTO `user` VALUES ('2', 'tom', '汤姆', '$2a$10$aFWSMETkwYfjofRJ38SwV.v9MNQdn.pECJRA/zpUagPzI4MVEeA2O', '2018-05-17', '2018-05-17', '1', '1', '1', '1');
+INSERT INTO `user` VALUES ('3', 'jim', '吉姆', '$2a$10$aFWSMETkwYfjofRJ38SwV.v9MNQdn.pECJRA/zpUagPzI4MVEeA2O', '2018-05-17', '2018-05-17', '1', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for user_role
