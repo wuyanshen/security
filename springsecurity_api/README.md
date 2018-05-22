@@ -21,3 +21,9 @@
    [博客地址](https://www.tianmaying.com/tutorial/springboot-redis-message)
    [spring boot 1.5.9 整合redis](https://yq.aliyun.com/articles/539524)
    [基于spring的redisTemplate的缓存工具类](http://hbxflihua.iteye.com/blog/2328156)
+   
+## spring5
+   [There is no PasswordEncoder mapped for the id "null"](https://blog.csdn.net/dream_an/article/details/79381459)
+   
+## JWT
+   [使用JWT保护你的Spring Boot应用](https://segmentfault.com/a/1190000009231329)
