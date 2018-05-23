@@ -17,7 +17,7 @@ import java.util.*;
  * @author YanShen.Wu
  * @date 2018/5/22 16:20:49
  */
-public class TokenAuthenticationService {
+public class JWTUtil {
     static final long EXPIRATIONTIME = 432_000_000;     // 5天
     static final String SECRET = "P@ssw02d";            // JWT密码
     static final String TOKEN_PREFIX = "Bearer ";        // Token前缀

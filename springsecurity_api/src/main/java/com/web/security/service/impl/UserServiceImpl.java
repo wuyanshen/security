@@ -28,13 +28,13 @@ public class UserServiceImpl implements UserService {
     public List<User> findAllUser(int pageNum, int pageSize) {
         //将参数传给这个方法就可以实现物理分页了，非常简单。
         List<User> list = null;
-        PageHelper.startPage(pageNum, pageSize);
 
         //redis操作
         if(!RedisUtil.hasKey("users")){
             RedisUtil.setCacheObject("users",userMapper.findAllUser(),20);
             list = userMapper.findAllUser();
         }else {
+            PageHelper.startPage(pageNum, pageSize);
             list =  RedisUtil.getCacheList("users");
         }
 

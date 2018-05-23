@@ -1,8 +1,6 @@
 package com.web.security.config.jwtConfig;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 用户登录校验类
  * @author YanShen.Wu
  * @date 2018/5/22 17:57:20
  */
@@ -34,7 +33,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 //        MyUser creds = new ObjectMapper().readValue(req.getInputStream(), MyUser.class);
         MyUser creds = JSON.parseObject(req.getInputStream(), MyUser.class);
 
-
         // 返回一个验证令牌
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -46,14 +44,14 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest req,HttpServletResponse res, FilterChain chain,Authentication auth) throws IOException, ServletException {
-
-        TokenAuthenticationService.addAuthentication(res, auth);
+        //登录成功后返回token
+        JWTUtil.addAuthentication(res, auth);
     }
 
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-
+        //登录失败返回失败信息
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
         response.getOutputStream().println(JSONResult.fillResultString(500, "Internal Server Error!!!", null));

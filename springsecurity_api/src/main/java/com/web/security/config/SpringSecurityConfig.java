@@ -2,6 +2,7 @@ package com.web.security.config;
 
 import com.web.security.config.jwtConfig.JWTAuthenticationFilter;
 import com.web.security.config.jwtConfig.JWTLoginFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,8 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -22,6 +22,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity //开启spring security过滤器链
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 
+    @Autowired
+    private UserDetailServiceImpl userDetailsService;
+
     // 设置 HTTP 验证规则
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -32,7 +35,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
         // 对请求进行认证
         http.authorizeRequests()
                 //匹配路径要从根路径写起
-                .antMatchers("/user/gets").hasAnyAuthority("REDIS")
+//                .antMatchers("/user/gets").hasAnyAuthority("REDIS")
 //                .antMatchers("/").permitAll()
                 // 所有 /login 的POST请求 都放行
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
@@ -60,7 +63,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorities("WRITE_PRIVILEGES", "REDIS")
                 .roles("MANAGER");*/
 
-        auth.inMemoryAuthentication()
+        /*auth.inMemoryAuthentication()
             .withUser(
                 User.withDefaultPasswordEncoder()
                     .username("user")
@@ -75,7 +78,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                         .roles("MANAGER")
                         .authorities("REDIS,GET_INFO,FIND_INFO,UPDATE_INFO")
                         .build()
-            );
+            );*/
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 
     }
 
