@@ -11,8 +11,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author YanShen.Wu
@@ -21,18 +20,20 @@ import java.util.List;
 public class TokenAuthenticationService {
     static final long EXPIRATIONTIME = 432_000_000;     // 5天
     static final String SECRET = "P@ssw02d";            // JWT密码
-    static final String TOKEN_PREFIX = "Bearer";        // Token前缀
+    static final String TOKEN_PREFIX = "Bearer ";        // Token前缀
     static final String HEADER_STRING = "Authorization";// 存放Token的Header Key
 
     // JWT生成方法
-    static void addAuthentication(HttpServletResponse response, String username) {
-
+    static void addAuthentication(HttpServletResponse response, Authentication auth) {
+       String authorities = "";
+        Set<String> authoritySet = AuthorityUtils.authorityListToSet(auth.getAuthorities());
+        authorities = String.join(",", authoritySet);
         // 生成JWT
         String JWT = Jwts.builder()
                 // 保存权限（角色）
-                .claim("authorities", "ROLE_ADMIN,AUTH_WRITE")
+                .claim("authorities", authorities)
                 // 用户名写入标题
-                .setSubject(username)
+                .setSubject(auth.getName())
                 // 有效期设置
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
                 // 签名设置
@@ -43,7 +44,7 @@ public class TokenAuthenticationService {
         try {
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getOutputStream().println(JSONResult.fillResultString(0, "", JWT));
+            response.getOutputStream().println(JSONResult.fillResultString(0, "", "Bearer "+JWT));
         } catch (IOException e) {
             e.printStackTrace();
         }

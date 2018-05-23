@@ -1,5 +1,6 @@
 package com.web.security.config.jwtConfig;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,12 +28,12 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     @Override
-    public Authentication attemptAuthentication(
-            HttpServletRequest req, HttpServletResponse res)
-            throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)throws AuthenticationException, IOException, ServletException {
 
-        // JSON反序列化成 AccountCredentials
-        AccountCredentials creds = new ObjectMapper().readValue(req.getInputStream(), AccountCredentials.class);
+        // JSON反序列化成 MyUser
+//        MyUser creds = new ObjectMapper().readValue(req.getInputStream(), MyUser.class);
+        MyUser creds = JSON.parseObject(req.getInputStream(), MyUser.class);
+
 
         // 返回一个验证令牌
         return getAuthenticationManager().authenticate(
@@ -44,12 +45,9 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     }
 
     @Override
-    protected void successfulAuthentication(
-            HttpServletRequest req,
-            HttpServletResponse res, FilterChain chain,
-            Authentication auth) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest req,HttpServletResponse res, FilterChain chain,Authentication auth) throws IOException, ServletException {
 
-        TokenAuthenticationService.addAuthentication(res, auth.getName());
+        TokenAuthenticationService.addAuthentication(res, auth);
     }
 
 
@@ -58,6 +56,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getOutputStream().println(JSONResult.fillResultString(500, "Internal Server Error!!!", JSONObject.toJSONString(null)));
+        response.getOutputStream().println(JSONResult.fillResultString(500, "Internal Server Error!!!", null));
     }
 }

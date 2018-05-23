@@ -33,7 +33,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 //匹配路径要从根路径写起
                 .antMatchers("/user/gets").hasAnyAuthority("REDIS")
-                .antMatchers("/").permitAll()
+//                .antMatchers("/").permitAll()
                 // 所有 /login 的POST请求 都放行
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 // 所有请求需要身份认证
@@ -66,13 +66,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                     .username("user")
                     .password("user")
                     .roles("USER")
+                    .authorities("GET_INFO")
                     .build()
             ).withUser(
                 User.withDefaultPasswordEncoder()
                         .username("manager")
                         .password("password")
                         .roles("MANAGER")
-                        .authorities("REDIS")
+                        .authorities("REDIS,GET_INFO,FIND_INFO,UPDATE_INFO")
                         .build()
             );
 
