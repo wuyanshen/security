@@ -47,7 +47,7 @@ public class MainController {
      */
     @RequestMapping(value="/getCode")
     public void getCode(@RequestParam(value = "time") String time, HttpServletRequest request, HttpServletResponse response){
-        ValidateCode code = new ValidateCode(60,20,4,30,15,"imageCode");
+        ValidateCode code = new ValidateCode(60,22,4,10,20,"imageCode");
         code.getCode(request, response);
     }
 

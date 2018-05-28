@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author YanShen.Wu
  * @date 2018-05-16 00:16
@@ -23,7 +25,9 @@ public class UserController {
         return "user/userUpdate";
     }
     @RequestMapping("/add")
-    public String addUser(){
+    public String addUser(HttpServletRequest request){
+        String imageCode = (String)request.getSession().getAttribute("imageCode");
+        request.setAttribute("imageCode",imageCode);
         return "user/userAdd";
     }
     @RequestMapping("/delete")
