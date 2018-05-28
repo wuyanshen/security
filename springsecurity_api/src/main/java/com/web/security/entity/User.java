@@ -4,6 +4,7 @@ package com.web.security.entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * @author YanShen.Wu
  * @date 2018-05-17 01:02
  */
-public class User implements UserDetails {
+public class User implements UserDetails,Serializable {
     private Integer userid; //int(10) NOT NULL,
     private String username; //varchar(50) DEFAULT NULL,
     private String realname; //varchar(50) DEFAULT NULL,

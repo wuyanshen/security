@@ -1,10 +1,12 @@
 package com.web.security.entity;
 
+import java.io.Serializable;
+
 /**
  * @author YanShen.Wu
  * @date 2018-05-17 01:12
  */
-public class Permission {
+public class Permission implements Serializable{
     private Integer permissionid; //int(10) NOT NULL,
     private String permissionname; //varchar(50) DEFAULT NULL,
     private String permissionflag; //varchar(50) DEFAULT NULL,

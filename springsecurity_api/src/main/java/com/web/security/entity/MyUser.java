@@ -1,13 +1,21 @@
-package com.web.security.config.jwtConfig;
+package com.web.security.entity;
+
+import java.io.Serializable;
 
 /**
  * @author YanShen.Wu
  * @date 2018/5/22 18:00:57
  */
-public class MyUser {
+public class MyUser implements Serializable{
 
     private String username;
     private String password;
+
+    public MyUser(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
 
     public String getUsername() {
         return username;

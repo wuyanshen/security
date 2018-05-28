@@ -3,6 +3,7 @@ package com.web.security.config;
 import com.web.security.config.jwtConfig.JWTAuthenticationFilter;
 import com.web.security.config.jwtConfig.JWTLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -36,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 //匹配路径要从根路径写起
 //                .antMatchers("/user/gets").hasAnyAuthority("REDIS")
-//                .antMatchers("/").permitAll()
+//                .antMatchers("/**").permitAll()
                 // 所有 /login 的POST请求 都放行
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 // 所有请求需要身份认证
@@ -52,8 +54,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        /* spring5 这么做不起作用
-        auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+        //spring5 这么做不起作用
+        auth.inMemoryAuthentication()
                 .withUser("user")
                 .password("123")
                 .roles("USER")
@@ -61,7 +63,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                 .withUser("admin")
                 .password("123")
                 .authorities("WRITE_PRIVILEGES", "REDIS")
-                .roles("MANAGER");*/
+                .roles("MANAGER");
 
         /*auth.inMemoryAuthentication()
             .withUser(
@@ -79,11 +81,24 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                         .authorities("REDIS,GET_INFO,FIND_INFO,UPDATE_INFO")
                         .build()
             );*/
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+//        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 
     }
 
+    /**
+     * 页面端权限配置
+     * @param web
+     * @throws Exception
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
+        // Swagger2 权限放行
+        web.ignoring().antMatchers("/swagger-ui.html","/resources/**","/webjars/**","/swagger-resources/**","/v2/**");
     }
+
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.web.security.config.jwtConfig;
 
 import com.alibaba.fastjson.JSON;
+import com.web.security.entity.MyUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
