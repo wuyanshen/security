@@ -1,7 +1,8 @@
 package com.web.security.config.swaggerConfig;
 
-import com.sun.beans.TypeResolver;
+import com.fasterxml.classmate.TypeResolver;
 import com.web.security.entity.MyUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,9 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 public class SwaggerConfig {
 
 
+    @Autowired
+    private TypeResolver typeResolver;
+
     @Bean
     public Docket createRestAPI(){
 
@@ -52,6 +56,7 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(pars)
+                .additionalModels(typeResolver.resolve(MyUser.class),typeResolver.resolve(String.class))
                 ;
     }
 
