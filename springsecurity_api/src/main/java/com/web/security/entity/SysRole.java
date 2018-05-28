@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author YanShen.Wu
  * @date 2018-05-17 01:11
  */
-public class Role implements Serializable {
+public class SysRole implements Serializable {
     private Integer roleid; //int(10) NOT NULL,
     private String rolename; //varchar(50) DEFAULT NULL
     private String roledesc; //varchar(50) DEFAULT NULL,

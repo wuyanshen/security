@@ -13,7 +13,7 @@ import java.util.List;
  * @author YanShen.Wu
  * @date 2018-05-17 01:02
  */
-public class User implements UserDetails,Serializable {
+public class SysUser implements UserDetails,Serializable {
     private Integer userid; //int(10) NOT NULL,
     private String username; //varchar(50) DEFAULT NULL,
     private String realname; //varchar(50) DEFAULT NULL,

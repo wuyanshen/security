@@ -1,6 +1,6 @@
 package com.security;
 
-import com.web.security.entity.User;
+import com.web.security.entity.SysUser;
 import com.web.security.service.UserService;
 import com.web.security.util.redis.RedisUtil;
 import com.web.security.util.redis.ReedisUtil;
@@ -68,13 +68,13 @@ public class RedisTest {
     }
     @Test
     public void test3(){
-        List<User> list = userService.findAllUser(1,3);
+        List<SysUser> list = userService.findAllUser(1,3);
         System.out.println(list.get(0).getUsername());
     }
 
     @Test
     public void test4(){
-        User user = userService.findUser("jack");
+        SysUser user = userService.findUser("jack");
         System.out.println(user.getUsername());
     }
 

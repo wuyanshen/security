@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!--自动生成-->
 <mapper namespace="com.web.security.mapper.RoleMapper" >
-  <resultMap id="BaseResultMap" type="com.web.security.entity.Role" >
+  <resultMap id="BaseResultMap" type="com.web.security.entity.SysRole" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="nameZH" property="namezh" jdbcType="VARCHAR" />
@@ -20,13 +20,13 @@
     delete from role
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.web.security.entity.Role" >
+  <insert id="insert" parameterType="com.web.security.entity.SysRole" >
     insert into role (id, name, nameZH
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{namezh,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.web.security.entity.Role" >
+  <insert id="insertSelective" parameterType="com.web.security.entity.SysRole" >
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -51,7 +51,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.web.security.entity.Role" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.security.entity.SysRole" >
     update role
     <set >
       <if test="name != null" >
@@ -63,7 +63,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.web.security.entity.Role" >
+  <update id="updateByPrimaryKey" parameterType="com.web.security.entity.SysRole" >
     update role
     set name = #{name,jdbcType=VARCHAR},
       nameZH = #{namezh,jdbcType=VARCHAR}

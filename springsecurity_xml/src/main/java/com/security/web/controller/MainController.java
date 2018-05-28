@@ -1,6 +1,6 @@
 package com.security.web.controller;
 
-import com.security.web.entity.User;
+import com.security.web.entity.SysUser;
 import com.security.web.util.SpringSecurityUtil;
 import com.security.web.util.ValidateCode;
 import org.apache.log4j.Logger;
@@ -54,8 +54,8 @@ public class MainController {
 
     @RequestMapping(value="/getUser")
     @ResponseBody
-    public User getUser(){
-        User user = SpringSecurityUtil.getCurrentUser();
+    public SysUser getUser(){
+        SysUser user = SpringSecurityUtil.getCurrentUser();
         return user;
     }
 }

@@ -1,6 +1,6 @@
-package com.security.web.util;
+package com.web.security.util;
 
-import com.security.web.entity.SysUser;
+import com.web.security.entity.SysUser;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 

@@ -63,5 +63,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             error = "用户名或密码错误";
         }
         writer.write(JSONResult.fillResultString(500, error, null));
+        writer.flush();
+        writer.close();
     }
 }

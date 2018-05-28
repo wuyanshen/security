@@ -1,7 +1,7 @@
 package com.security.web.service;
 
-import com.security.web.entity.Permission;
-import com.security.web.entity.User;
+import com.security.web.entity.SysPermission;
+import com.security.web.entity.SysUser;
 import com.security.web.mapper.UserMapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class MyUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根 据 用 户 名 查 询 用 户 信 息
-        User user = userMapper.findByUsername(username);
+        SysUser user = userMapper.findByUsername(username);
         // 根 据 用 户 名 查 询 当 前 用 户 所 有 权 限
-        List<Permission> permList = userMapper.findPermissionByUsername(username);
+        List<SysPermission> permList = userMapper.findPermissionByUsername(username);
         //authorities ： 存 放 所 有 用 户 权 限
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for (Permission perm : permList) {
+        for (SysPermission perm : permList) {
             GrantedAuthority authority = new SimpleGrantedAuthority(perm.getPermissionflag());
             authorities.add(authority);
         }

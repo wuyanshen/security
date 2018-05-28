@@ -1,16 +1,16 @@
 package com.web.security.service;
 
-import com.web.security.entity.User;
+import com.web.security.entity.SysUser;
 
 import java.util.List;
 
 public interface UserService {
-    int addUser(User user);
+    int addUser(SysUser user);
 
-    List<User> findAllUser(int pageNum, int pageSize);
+    List<SysUser> findAllUser(int pageNum, int pageSize);
 
-    User findUser(String username);
+    SysUser findUser(String username);
 
-    int insertUser(User user);
+    int insertUser(SysUser user);
 
 }

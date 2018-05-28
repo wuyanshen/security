@@ -1,19 +1,18 @@
 package com.web.security.mapper;
 
-import com.web.security.entity.Role;
-import org.apache.ibatis.annotations.Mapper;
+import com.web.security.entity.SysRole;
 
 //@Mapper
 public interface RoleMapper {
     int deleteByPrimaryKey(Long id);
 
-    int insert(Role record);
+    int insert(SysRole record);
 
-    int insertSelective(Role record);
+    int insertSelective(SysRole record);
 
-    Role selectByPrimaryKey(Long id);
+    SysRole selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(Role record);
+    int updateByPrimaryKeySelective(SysRole record);
 
-    int updateByPrimaryKey(Role record);
+    int updateByPrimaryKey(SysRole record);
 }

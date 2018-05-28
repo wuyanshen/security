@@ -1,11 +1,10 @@
 package com.web.security.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.web.security.entity.User;
+import com.web.security.entity.SysUser;
 import com.web.security.mapper.UserMapper;
 import com.web.security.service.UserService;
 import com.web.security.util.redis.RedisUtil;
-import com.web.security.util.redis.ReedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +18,15 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public int addUser(User user) {
+    public int addUser(SysUser user) {
         return 1;
     }
 
     @Override
 //    @Cacheable("user")
-    public List<User> findAllUser(int pageNum, int pageSize) {
+    public List<SysUser> findAllUser(int pageNum, int pageSize) {
         //将参数传给这个方法就可以实现物理分页了，非常简单。
-        List<User> list = null;
+        List<SysUser> list = null;
 
         //redis操作
         if(!RedisUtil.hasKey("users")){
@@ -42,21 +41,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUser(String username) {
-        User user = null;
+    public SysUser findUser(String username) {
+        SysUser user = null;
 
         //redis操作
         if(!RedisUtil.hasKey(username)){
             user = userMapper.findByUsername(username);
             RedisUtil.setCacheObject(username,user,60);
         }else {
-            user = (User) RedisUtil.getCacheObject(username,User.class);
+            user = (SysUser) RedisUtil.getCacheObject(username,SysUser.class);
         }
         return user;
     }
 
     @Override
-    public int insertUser(User user) {
+    public int insertUser(SysUser user) {
 
         //redis操作
        /* if(!redisUtil.haskey(user.getId()+"")){

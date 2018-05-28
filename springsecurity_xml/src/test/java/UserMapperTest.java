@@ -1,6 +1,6 @@
 import com.alibaba.fastjson.JSON;
-import com.security.web.entity.Permission;
-import com.security.web.entity.User;
+import com.security.web.entity.SysPermission;
+import com.security.web.entity.SysUser;
 import com.security.web.mapper.UserMapper;
 import com.security.web.util.SpringSecurityUtil;
 import org.apache.log4j.Logger;
@@ -29,14 +29,14 @@ public class UserMapperTest {
 
     @Test
     public void testFindByUsername() {
-        User user = userMapper.findByUsername("jack");
+        SysUser user = userMapper.findByUsername("jack");
         System.out.println(user.getRealname());
     }
 
     @Test
     public void testFindPermissionByUsername() {
-        List<Permission> list = userMapper.findPermissionByUsername("jack");
-        for (Permission perm : list) {
+        List<SysPermission> list = userMapper.findPermissionByUsername("jack");
+        for (SysPermission perm : list) {
             System.out.println(perm.getPermissionname() + " - " + perm.getPermissionflag());
             log.debug(perm.getPermissionname() + " - " + perm.getPermissionflag());
         }
@@ -45,7 +45,7 @@ public class UserMapperTest {
     @Test
     public void updatePassword(){
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        User user = userMapper.findByUsername("jack");
+        SysUser user = userMapper.findByUsername("jack");
         String password = passwordEncoder.encode(user.getPassword());
         user.setPassword(password);
         userMapper.updateUserPassword(user);
@@ -64,7 +64,7 @@ public class UserMapperTest {
 
     @Test
     public void getCurrentUser(){
-        User user = SpringSecurityUtil.getCurrentUser();
+        SysUser user = SpringSecurityUtil.getCurrentUser();
         if(user!=null){
             String str = JSON.toJSONString(user);
             System.out.println(str);

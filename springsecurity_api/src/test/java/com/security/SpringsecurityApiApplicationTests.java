@@ -1,7 +1,6 @@
 package com.security;
 
-import com.web.security.entity.User;
-import com.web.security.mapper.UserMapper;
+import com.web.security.entity.SysUser;
 import com.web.security.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,7 @@ public class SpringsecurityApiApplicationTests {
 		/*userMapper.insert("wuyanshen", "123456",22, "12345678910");
 		User u = userMapper.findUserByUserName("wuyanshen");
 		Assert.assertEquals("wuyanshen", u.getUsername());*/
-        User user = userService.findUser("jack");
+        SysUser user = userService.findUser("jack");
         System.out.println(user.getUsername());
 
 	}

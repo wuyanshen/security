@@ -5,14 +5,11 @@ import com.web.security.entity.MyUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.context.request.async.DeferredResult;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
-import springfox.documentation.schema.WildcardType;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
@@ -20,10 +17,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 /**
  * Swagger2 配置类
@@ -42,7 +37,7 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestAPI(){
 
-        //参数中增加token输入项
+        //全局的接口文档参数中增加token输入项
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<>();
         tokenPar.name("Authorization").description("JWT令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
@@ -64,12 +59,12 @@ public class SwaggerConfig {
     @Bean
     public ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("消息服务总线emsb RESTFUL APIS")//标题
+                .title("SpringSecurity API文档")//标题
                 .contact("http://www.elisoft.com.cn")//联系方式
-                .description("emsb(EliSoft Message Service Bus) 接口api")//描述
+                .description("SpringSecurity 接口api")//描述
                 .licenseUrl("http://www.elisoft.com.cn")//许可地址
-                .termsOfServiceUrl("http://localhost:8089/emsb/esb")//服务地址
-                .license("京ICP备15004801号")//许可证
+                .termsOfServiceUrl("http://localhost:8000/")//服务地址
+                .license("apache")//许可证
                 .version("1.0")//版本
                 .build();
     }
