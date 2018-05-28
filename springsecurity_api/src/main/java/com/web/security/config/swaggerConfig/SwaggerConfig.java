@@ -56,7 +56,8 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build()
                 .globalOperationParameters(pars)
-                .additionalModels(typeResolver.resolve(MyUser.class),typeResolver.resolve(String.class))
+                //添加实体模型
+                .additionalModels(typeResolver.resolve(MyUser.class))
                 ;
     }
 

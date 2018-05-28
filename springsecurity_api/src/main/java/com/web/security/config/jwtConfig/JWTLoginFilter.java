@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * 用户登录校验类
@@ -54,7 +55,13 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         //登录失败返回失败信息
         response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getOutputStream().println(JSONResult.fillResultString(500, "Internal Server Error!!!", null));
+        response.setCharacterEncoding("UTF-8");
+        PrintWriter writer = response.getWriter();
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        String error = "";
+        if(failed.getMessage().equals("Bad credentials")){
+            error = "用户名或密码错误";
+        }
+        writer.write(JSONResult.fillResultString(500, error, null));
     }
 }
