@@ -1,4 +1,4 @@
-package com.web.security.config;
+package com.web.security.config.redisConfig;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;

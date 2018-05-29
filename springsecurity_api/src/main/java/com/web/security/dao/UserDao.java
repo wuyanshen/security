@@ -1,4 +1,4 @@
-package com.web.security.mapper;
+package com.web.security.dao;
 
 
 import com.web.security.entity.SysPermission;
@@ -7,7 +7,7 @@ import com.web.security.entity.SysUser;
 import java.util.List;
 
 
-public interface UserMapper {
+public interface UserDao {
     /**
      *
      查 询 当 前 用 户 对 象

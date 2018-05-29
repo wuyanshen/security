@@ -20,12 +20,27 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @ResponseBody
-    @PostMapping("/add")
-    public int addUser(SysUser user){
-        int result = userService.addUser(user);
-        return result;
+    @GetMapping("/add")
+    public String addUser(SysUser user){
+//        int result = userService.addUser(user);
+        return "user/userAdd";
     }
+
+    @GetMapping("/update")
+    public String updateUser(SysUser user){
+        return "user/userUpdate";
+    }
+
+    @GetMapping("/delete")
+    public String deleteUser(SysUser user){
+        return "user/userDelete";
+    }
+
+    @GetMapping("/list")
+    public String listUser(SysUser user){
+        return "user/userList";
+    }
+
     @ResponseBody
     @PostMapping("/all/{pageNum}/{pageSize}")
     public List<SysUser> findAllUser(@PathVariable("pageNum")int pageNum, @PathVariable("pageSize") int pageSize){

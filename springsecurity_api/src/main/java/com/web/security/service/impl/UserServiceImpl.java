@@ -2,7 +2,7 @@ package com.web.security.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.web.security.entity.SysUser;
-import com.web.security.mapper.UserMapper;
+import com.web.security.dao.UserDao;
 import com.web.security.service.UserService;
 import com.web.security.util.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserMapper userMapper;//这里会报错，但是并不会影响
+    private UserDao userMapper;//这里会报错，但是并不会影响
 
 
     @Override

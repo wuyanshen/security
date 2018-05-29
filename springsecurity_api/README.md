@@ -28,3 +28,9 @@
    
 ## JWT
    [使用JWT保护你的Spring Boot应用](https://segmentfault.com/a/1190000009231329)
+
+## Thymeleaf
+   [springboot集成thymeleaf(不重启刷新html)](https://blog.csdn.net/KevinDai007/article/details/79479847)
+   
+## SpringSecurity+springBoot+mybatis
+   [基于springboot的security机制](https://segmentfault.com/a/1190000013057238)

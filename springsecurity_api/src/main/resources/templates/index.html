@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+    <span sec:authorize="!isAuthenticated()">
+                    | Logged user: <span sec:authentication="principal.username"></span> |
+                    Roles: <span sec:authentication="principal.authorities"></span> |
+                    <a th:href="@{/logout}">登出</a>
+    </span><br>
+项目主页<br>
+<a th:href="@{/user/add}">用户新增</a><br>
+<a th:href="@{/user/update}">用户更新</a><br>
+<a th:href="@{/user/delete}">用户删除</a><br>
+<a th:href="@{/user/list}">用户列表</a><br>
+</body>
+</html>

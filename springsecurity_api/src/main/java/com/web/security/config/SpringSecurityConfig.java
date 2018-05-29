@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Spring Security配置类
@@ -34,28 +35,33 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
         // 关闭csrf验证
         http.csrf().disable();
 
+        //表单登录
+        http.formLogin()
+            .loginPage("/login").permitAll()
+            .and()
+            .logout().permitAll();
+
         // 对请求进行认证
         http.authorizeRequests()
                 //匹配路径要从根路径写起
-//                .antMatchers("/user/gets").hasAnyAuthority("REDIS")
-//                .antMatchers("/**").permitAll()
+                .antMatchers("/user/update").hasAnyAuthority("/user/update")
                 // 所有 /login 的POST请求 都放行
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
+//                .antMatchers("/login").permitAll()
                 // 所有请求需要身份认证
                 .anyRequest().authenticated();
 
-        // 添加一个过滤器 所有访问 /login 的请求交给 JWTLoginFilter 来处理 这个类处理所有的JWT相关内容
-        http.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),UsernamePasswordAuthenticationFilter.class)
+       /* // 添加一个过滤器 所有访问 /login 的请求交给 JWTLoginFilter 来处理 这个类处理所有的JWT相关内容
+        http.addFilterAt(new JWTLoginFilter("/login", authenticationManager()),UsernamePasswordAuthenticationFilter.class)
             // 添加一个过滤器验证其他请求的Token是否合法
-            .addFilterBefore(new JWTAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
-//        http.formLogin();
+            .addFilterBefore(new JWTAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);*/
+
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
         //spring5 这么做不起作用
-        auth.inMemoryAuthentication()
+        /*auth.inMemoryAuthentication()
                 .withUser("user")
                 .password("123")
                 .roles("USER")
@@ -63,7 +69,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                 .withUser("admin")
                 .password("123")
                 .authorities("WRITE_PRIVILEGES", "REDIS")
-                .roles("MANAGER");
+                .roles("MANAGER");*/
 
         /*auth.inMemoryAuthentication()
             .withUser(
@@ -81,7 +87,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
                         .authorities("REDIS,GET_INFO,FIND_INFO,UPDATE_INFO")
                         .build()
             );*/
-//        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 
     }
 

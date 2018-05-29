@@ -8,7 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 
 @SpringBootApplication
-@MapperScan("com.web.security.mapper")//将项目中对应的mapper类的路径加进来就可以了
+@MapperScan("com.web.security.dao")//将项目中对应的mapper类的路径加进来就可以了
 public class SpringsecurityApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringsecurityApiApplication.class, args);

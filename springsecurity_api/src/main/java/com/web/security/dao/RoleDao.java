@@ -1,9 +1,9 @@
-package com.web.security.mapper;
+package com.web.security.dao;
 
 import com.web.security.entity.SysRole;
 
 //@Mapper
-public interface RoleMapper {
+public interface RoleDao {
     int deleteByPrimaryKey(Long id);
 
     int insert(SysRole record);
