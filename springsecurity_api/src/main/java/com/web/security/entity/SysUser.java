@@ -22,7 +22,7 @@ public class SysUser implements UserDetails,Serializable {
     private Date lastlogintime; //date DEFAULT NULL,
     private boolean isuse; //int(5) DEFAULT NULL,
     private boolean isexpired; //int(5) DEFAULT NULL,
-    private boolean idlocked; //int(5) DEFAULT NULL,
+    private boolean islocked; //int(5) DEFAULT NULL,
     private boolean certificateisexpired; //int(5) DEFAULT NULL,
 
     // 用 户 拥 有 的 所 有 权 限
@@ -103,11 +103,11 @@ public class SysUser implements UserDetails,Serializable {
     }
 
     public boolean isIdlocked() {
-        return idlocked;
+        return islocked;
     }
 
-    public void setIdlocked(boolean idlocked) {
-        this.idlocked = idlocked;
+    public void setIdlocked(boolean islocked) {
+        this.islocked = islocked;
     }
 
     public boolean isCertificateisexpired() {
@@ -138,11 +138,11 @@ public class SysUser implements UserDetails,Serializable {
 
     @Override
     public boolean isAccountNonLocked() {
-        return idlocked;
+        return islocked;
     }
 
     public void setAccountNonLocked(boolean accountNonLocked) {
-        this.idlocked = accountNonLocked;
+        this.islocked = accountNonLocked;
     }
 
     @Override
@@ -153,4 +153,6 @@ public class SysUser implements UserDetails,Serializable {
     public void setCredentialsNonExpired(boolean credentialsNonExpired) {
         this.certificateisexpired = credentialsNonExpired;
     }
+
+
 }

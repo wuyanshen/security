@@ -3,9 +3,9 @@
 <!--自动生成-->
 <mapper namespace="com.web.security.dao.RoleDao" >
   <resultMap id="BaseResultMap" type="com.web.security.entity.SysRole" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="nameZH" property="namezh" jdbcType="VARCHAR" />
+    <id column="id" property="roleid" jdbcType="BIGINT" />
+    <result column="name" property="rolename" jdbcType="VARCHAR" />
+    <result column="nameZH" property="roledesc" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, nameZH

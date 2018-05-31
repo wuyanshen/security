@@ -39,7 +39,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         //将权限放到用户中
         List<GrantedAuthority> authorityList = new ArrayList<>();
         for(SysPermission permission: list){
-            authorityList.add(new SimpleGrantedAuthority(permission.getPermissionflag()));
+            authorityList.add(new SimpleGrantedAuthority(permission.getPermissionurl()));
         }
         user.setAuthorities(authorityList);
 

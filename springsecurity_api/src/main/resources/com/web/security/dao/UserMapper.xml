@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.web.security.dao.UserDao">
     <!--查 询 用 户-->
-    <select id="findByUsername" parameterType="string" resultType="SysUser">
+    <select id="findByUsername" parameterType="string" resultType="com.web.security.entity.SysUser">
       select * from sys_user where username = #{value}
     </select>
 
     <!--查 询 用 户 的 权 限-->
-    <select id="findPermissionByUsername" parameterType="string" resultType="SysPermission">
+    <select id="findPermissionByUsername" parameterType="string" resultType="com.web.security.entity.SysPermission">
         SELECT d.*
             FROM
             sys_user a
@@ -20,7 +20,7 @@
         WHERE a.username = #{value};
     </select>
     <!--查询所有用户-->
-    <select id="findAllUser" resultType="SysUser">
+    <select id="findAllUser" resultType="com.web.security.entity.SysUser">
         SELECT * FROM sys_user;
     </select>
 </mapper>
