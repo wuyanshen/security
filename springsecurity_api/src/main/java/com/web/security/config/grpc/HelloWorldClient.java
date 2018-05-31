@@ -1,15 +1,13 @@
-package com.web.security.grpc;
+package com.web.security.config.grpc;
 
-import com.alibaba.druid.sql.visitor.functions.If;
-import com.web.security.grpc.common.GreeterGrpc;
-import com.web.security.grpc.common.HelloReply;
-import com.web.security.grpc.common.HelloRequest;
+import com.web.security.config.grpc.common.GreeterGrpc;
+import com.web.security.config.grpc.common.HelloReply;
+import com.web.security.config.grpc.common.HelloRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import java.util.concurrent.TimeUnit;
 

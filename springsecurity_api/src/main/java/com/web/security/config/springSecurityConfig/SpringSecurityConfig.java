@@ -1,11 +1,8 @@
-package com.web.security.config;
+package com.web.security.config.springSecurityConfig;
 
-import com.web.security.config.jwtConfig.JWTAuthenticationFilter;
-import com.web.security.config.jwtConfig.JWTLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -13,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Spring Security配置类
@@ -44,11 +39,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
         // 对请求进行认证
         http.authorizeRequests()
                 //匹配路径要从根路径写起
-                .antMatchers("/user/update").hasAnyAuthority("/user/update")
+                //.antMatchers("/user/update").hasAnyAuthority("/user/update")
                 // 所有 /login 的POST请求 都放行
-//                .antMatchers("/login").permitAll()
-                // 所有请求需要身份认证
-                .anyRequest().authenticated();
+                // 所有请求需要身份认证，并根据权限访问
+                .anyRequest().access("@authService.canAccess(request,authentication)");
 
        /* // 添加一个过滤器 所有访问 /login 的请求交给 JWTLoginFilter 来处理 这个类处理所有的JWT相关内容
         http.addFilterAt(new JWTLoginFilter("/login", authenticationManager()),UsernamePasswordAuthenticationFilter.class)

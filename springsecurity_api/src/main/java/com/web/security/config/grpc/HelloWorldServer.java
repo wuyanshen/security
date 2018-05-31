@@ -1,8 +1,8 @@
-package com.web.security.grpc;
+package com.web.security.config.grpc;
 
-import com.web.security.grpc.common.GreeterGrpc;
-import com.web.security.grpc.common.HelloReply;
-import com.web.security.grpc.common.HelloRequest;
+import com.web.security.config.grpc.common.GreeterGrpc;
+import com.web.security.config.grpc.common.HelloReply;
+import com.web.security.config.grpc.common.HelloRequest;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;

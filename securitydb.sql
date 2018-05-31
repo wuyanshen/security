@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2018-05-29 22:40:36
+Date: 2018-06-01 00:38:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `sys_permission`;
 CREATE TABLE `sys_permission` (
   `permissionid` int(10) NOT NULL COMMENT '权限ID',
   `permissionname` varchar(50) DEFAULT NULL COMMENT '权限名',
-  `permissionflag` varchar(50) DEFAULT NULL COMMENT '权限标识',
+  `permissionurl` varchar(50) DEFAULT NULL COMMENT '权限标识',
   PRIMARY KEY (`permissionid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
 
@@ -33,6 +33,8 @@ INSERT INTO `sys_permission` VALUES ('1', '添加用户', '/user/add');
 INSERT INTO `sys_permission` VALUES ('2', '更新用户', '/user/update');
 INSERT INTO `sys_permission` VALUES ('3', '删除用户', '/user/delete');
 INSERT INTO `sys_permission` VALUES ('4', '查找用户', '/user/find');
+INSERT INTO `sys_permission` VALUES ('5', '主页', '/index');
+INSERT INTO `sys_permission` VALUES ('6', 'druid访问路径', '/druid/**');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -73,6 +75,11 @@ INSERT INTO `sys_role_permission` VALUES ('1', '1');
 INSERT INTO `sys_role_permission` VALUES ('2', '2');
 INSERT INTO `sys_role_permission` VALUES ('3', '3');
 INSERT INTO `sys_role_permission` VALUES ('4', '4');
+INSERT INTO `sys_role_permission` VALUES ('1', '5');
+INSERT INTO `sys_role_permission` VALUES ('2', '5');
+INSERT INTO `sys_role_permission` VALUES ('3', '5');
+INSERT INTO `sys_role_permission` VALUES ('4', '5');
+INSERT INTO `sys_role_permission` VALUES ('1', '6');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -87,7 +94,7 @@ CREATE TABLE `sys_user` (
   `lastlogindate` date DEFAULT NULL COMMENT '最后登录时间',
   `isuse` int(5) DEFAULT NULL COMMENT '是否可用',
   `isexpired` int(5) DEFAULT NULL COMMENT '是否过期',
-  `idlocked` int(5) DEFAULT NULL COMMENT '是否锁定',
+  `islocked` int(5) DEFAULT NULL COMMENT '是否锁定',
   `certificateisexpired` int(5) DEFAULT NULL COMMENT '证书是否过期',
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';

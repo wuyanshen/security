@@ -1,4 +1,4 @@
-package com.web.security.config;
+package com.web.security.config.mybatisConfig;
 
 import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;

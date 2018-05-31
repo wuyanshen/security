@@ -1,4 +1,4 @@
-package com.web.security.config;
+package com.web.security.config.springSecurityConfig;
 
 import com.web.security.entity.SysPermission;
 import com.web.security.entity.SysUser;

@@ -1,4 +1,4 @@
-package com.web.security.grpc.common;
+package com.web.security.config.grpc.common;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 import static io.grpc.stub.ClientCalls.asyncUnaryCall;
@@ -25,19 +25,19 @@ public final class GreeterGrpc {
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   @Deprecated // Use {@link #getSayHelloMethod()} instead.
   public static final io.grpc.MethodDescriptor<HelloRequest,
-      HelloReply> METHOD_SAY_HELLO = getSayHelloMethodHelper();
+          HelloReply> METHOD_SAY_HELLO = getSayHelloMethodHelper();
 
   private static volatile io.grpc.MethodDescriptor<HelloRequest,
-      HelloReply> getSayHelloMethod;
+          HelloReply> getSayHelloMethod;
 
   @io.grpc.ExperimentalApi("https://github.com/grpc/grpc-java/issues/1901")
   public static io.grpc.MethodDescriptor<HelloRequest,
-      HelloReply> getSayHelloMethod() {
+          HelloReply> getSayHelloMethod() {
     return getSayHelloMethodHelper();
   }
 
   private static io.grpc.MethodDescriptor<HelloRequest,
-      HelloReply> getSayHelloMethodHelper() {
+          HelloReply> getSayHelloMethodHelper() {
     io.grpc.MethodDescriptor<HelloRequest, HelloReply> getSayHelloMethod;
     if ((getSayHelloMethod = GreeterGrpc.getSayHelloMethod) == null) {
       synchronized (GreeterGrpc.class) {
@@ -106,8 +106,8 @@ public final class GreeterGrpc {
             getSayHelloMethodHelper(),
             asyncUnaryCall(
               new MethodHandlers<
-                HelloRequest,
-                HelloReply>(
+                      HelloRequest,
+                      HelloReply>(
                   this, METHODID_SAY_HELLO)))
           .build();
     }
