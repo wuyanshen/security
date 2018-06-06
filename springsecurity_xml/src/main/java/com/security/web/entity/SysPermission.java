@@ -6,8 +6,10 @@ package com.security.web.entity;
  */
 public class SysPermission {
     private Integer permissionid; //int(10) NOT NULL,
+
     private String permissionname; //varchar(50) DEFAULT NULL,
-    private String permissionflag; //varchar(50) DEFAULT NULL,
+
+    private String permissionurl; //varchar(50) DEFAULT NULL,
 
     public Integer getPermissionid() {
         return permissionid;
@@ -25,11 +27,13 @@ public class SysPermission {
         this.permissionname = permissionname;
     }
 
-    public String getPermissionflag() {
-        return permissionflag;
+    public String getPermissionurl() {
+        return permissionurl;
     }
 
-    public void setPermissionflag(String permissionflag) {
-        this.permissionflag = permissionflag;
+    public void setPermissionurl(String permissionurl) {
+        this.permissionurl = permissionurl;
     }
+
+
 }

@@ -3,24 +3,24 @@
 <mapper namespace="com.security.web.mapper.UserMapper">
     <!--查 询 用 户-->
     <select id="findByUsername" parameterType="string" resultType="SysUser">
-      select * from user where username = #{value}
+      select * from sys_user where username = #{value}
     </select>
 
     <!--查 询 用 户 的 权 限-->
     <select id="findPermissionByUsername" parameterType="string" resultType="SysPermission">
         SELECT d.*
         FROM
-            user a
-            INNER JOIN user_role b
+            sys_user a
+            INNER JOIN sys_user_role b
                 ON a.userid = b.userid
-            INNER JOIN role_permission c
+            INNER JOIN sys_role_permission c
                 ON b.roleid = c.roleid
-            INNER JOIN permission d
+            INNER JOIN sys_permission d
                 ON c.permissionid = d.permissionid
         WHERE a.username = #{value};
     </select>
 
     <update id="updateUserPassword" parameterType="SysUser">
-        UPDATE user a set a.password = #{password} WHERE a.username = #{username};
+        UPDATE sys_user a set a.password = #{password} WHERE a.username = #{username};
     </update>
 </mapper>

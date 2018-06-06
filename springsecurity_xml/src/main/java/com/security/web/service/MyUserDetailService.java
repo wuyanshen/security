@@ -34,7 +34,7 @@ public class MyUserDetailService implements UserDetailsService {
         //authorities ： 存 放 所 有 用 户 权 限
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         for (SysPermission perm : permList) {
-            GrantedAuthority authority = new SimpleGrantedAuthority(perm.getPermissionflag());
+            GrantedAuthority authority = new SimpleGrantedAuthority(perm.getPermissionurl());
             authorities.add(authority);
         }
         // 把 所 有 权 限 赋 值 给 user
